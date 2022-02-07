@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/where-is-subaru/static/css/main.bdba5ead.css",
+    "main.js": "/where-is-subaru/static/js/main.87369ae6.js",
+    "static/media/friends.png": "/where-is-subaru/static/media/friends.d5235a7817a7adeb4808.png",
+    "static/media/chick1.png": "/where-is-subaru/static/media/chick1.eabe3e5c0e0d9059822c.png",
+    "static/media/duck1.png": "/where-is-subaru/static/media/duck1.44f6b1a8281e52186b5a.png",
+    "static/media/chick5.png": "/where-is-subaru/static/media/chick5.d5032e45637af7cbad12.png",
+    "static/media/chick3.png": "/where-is-subaru/static/media/chick3.3972fbcc3176a363bcb0.png",
+    "static/media/chick2.png": "/where-is-subaru/static/media/chick2.43c992bbdbc04959b03a.png",
+    "static/media/chick4.png": "/where-is-subaru/static/media/chick4.10b01663dad922038ece.png",
+    "index.html": "/where-is-subaru/index.html",
+    "static/media/burgerBtn.svg": "/where-is-subaru/static/media/burgerBtn.15f3c47db839f2acfd3037cbfd2dd8d6.svg",
+    "main.bdba5ead.css.map": "/where-is-subaru/static/css/main.bdba5ead.css.map",
+    "main.87369ae6.js.map": "/where-is-subaru/static/js/main.87369ae6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bdba5ead.css",
+    "static/js/main.87369ae6.js"
+  ]
+}
