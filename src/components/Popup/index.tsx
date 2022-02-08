@@ -6,6 +6,7 @@ type PopupProps = {
   ducksAmount: number;
   setTime: (data: number) => void;
   time: number;
+  leaderboard: any[];
 };
 const Popup: React.FC<PopupProps> = (props) => {
   return (
@@ -22,6 +23,7 @@ const Popup: React.FC<PopupProps> = (props) => {
             setTime={props.setTime}
             setDucksAmount={props.setDucksAmount}
             playTime={props.time}
+            leaderboard={props.leaderboard}
           />
         )}
       </div>

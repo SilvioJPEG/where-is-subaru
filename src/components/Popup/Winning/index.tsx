@@ -5,10 +5,13 @@ import { collection, addDoc } from "firebase/firestore";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { LoadingOutlined } from "@ant-design/icons";
+
 type WinningProps = {
   playTime: number;
   setDucksAmount: (data: number) => void;
   setTime: (data: number) => void;
+  leaderboard: any[];
 };
 export const getDate = (unixTime: number) => {
   const d = new Date(unixTime);
@@ -18,8 +21,10 @@ const WinningPopup: React.FC<WinningProps> = ({
   setDucksAmount,
   playTime,
   setTime,
+  leaderboard,
 }) => {
-  const [buttonActive, setButtonActive] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
+  const [buttonVisible, setButtonVisible] = React.useState(true);
   return (
     <div className={styles.winningWrapper}>
       <h2>You won!</h2>
@@ -36,11 +41,18 @@ const WinningPopup: React.FC<WinningProps> = ({
             errors.name = "Required";
           } else if (values.name.length > 30) {
             errors.name = "Must be 30 characters or less";
+          } else if (
+            leaderboard.find((user) => {
+              return user.data.name === values.name;
+            })
+          ) {
+            errors.name = "User with this name already exists";
           }
           return errors;
         }}
         onSubmit={async (values) => {
-          setButtonActive(false);
+          setLoading(true);
+          setButtonVisible(false);
           await addDoc(collection(db, "leaderboard"), {
             playTime: playTime,
             name: values.name,
@@ -49,6 +61,7 @@ const WinningPopup: React.FC<WinningProps> = ({
               toast.error(err);
             })
             .finally(() => {
+              setLoading(false);
               toast.success("Saved!");
             });
         }}
@@ -67,14 +80,14 @@ const WinningPopup: React.FC<WinningProps> = ({
             </div>
           </div>
           <div className={styles.btnsRow}>
-            <button
-              className={styles.modalBtn}
-              type="submit"
-              style={buttonActive ? {} : { opacity: "0.3" }}
-              disabled={buttonActive ? false : true}
-            >
-              Save  
-            </button>
+            {loading && (
+              <LoadingOutlined style={{ fontSize: "50px", color: "black" }} />
+            )}
+            {buttonVisible && (
+              <button className={styles.modalBtn} type="submit">
+                Save
+              </button>
+            )}
             <button
               className={styles.modalBtn}
               id={styles.restartBtn}

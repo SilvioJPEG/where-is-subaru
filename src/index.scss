@@ -2,12 +2,12 @@
 * {
   box-sizing: border-box;
   outline: none;
-  --light-yellow: #fefbec;
 }
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
+  --light-yellow: #fefbec;
 }
 #root {
   width: 100%;

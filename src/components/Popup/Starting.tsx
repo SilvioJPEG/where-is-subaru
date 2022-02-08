@@ -9,9 +9,16 @@ const StartingPopup: React.FC<StartingPopupProps> = ({
   setTime,
 }) => {
   return (
-    <div style={{display: "flex", flexDirection:"column"}}>
-      <p>Game rules: </p>
-      <span>the game is easy, just find a duck.</span>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "20px",
+        alignItems: "center",
+      }}
+    >
+      <div>Game rules: </div>
+      <div>the game is easy, just find a duck.</div>
       <button
         className={styles.modalBtn}
         onClick={() => {

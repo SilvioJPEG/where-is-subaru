@@ -2,30 +2,19 @@ import React from "react";
 import styles from "./Sidebar.module.scss";
 import "reactjs-popup/dist/index.css";
 import { getDate } from "../Popup/Winning";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebase";
+
 type SidebarProps = {
   setSidebarOpen: (data: boolean) => void;
   sidebarOpen: boolean;
+  leaderboard: any[];
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ setSidebarOpen, sidebarOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  setSidebarOpen,
+  sidebarOpen,
+  leaderboard,
+}) => {
   const sidebarRef = React.useRef(null);
-  const [leaderboard, setLeaderboard] = React.useState<any[]>([]);
-  React.useEffect(() => {
-    try {
-      const q = query(collection(db, "leaderboard"), orderBy("playTime"));
-      onSnapshot(q, (querySnapshot) => {
-        setLeaderboard(
-          querySnapshot.docs.map((user) => ({
-            id: user.id,
-            data: user.data(),
-          }))
-        );
-      });
-    } catch (err) {}
-  }, []);
-
   function useOutsideAlerter(ref: React.RefObject<HTMLDivElement>) {
     React.useEffect(() => {
       function handleClickOutside(event: MouseEvent) {
@@ -39,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarOpen, sidebarOpen }) => {
       };
     }, [ref]);
   }
-  // TODO: сортировка массива пользователей для вывода в leaderboard
+
   useOutsideAlerter(sidebarRef);
   return (
     <div

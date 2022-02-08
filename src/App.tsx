@@ -5,7 +5,8 @@ import Sidebar from "./components/Sidebar";
 import BurgerBtn from "./assets/burgerBtn.svg";
 import Popup from "./components/Popup";
 import { Confetti } from "./components/Popup/Winning/Confetti";
-
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { db } from "./firebase";
 let occupiedSpace: DOMRect[] = [];
 
 function App() {
@@ -17,6 +18,20 @@ function App() {
   const wrapperRef = React.useRef<HTMLDivElement | null>(null);
   const infoRef = React.useRef<HTMLDivElement | null>(null);
   const [time, setTime] = React.useState<number>(0);
+  const [leaderboard, setLeaderboard] = React.useState<any[]>([]);
+  React.useEffect(() => {
+    try {
+      const q = query(collection(db, "leaderboard"), orderBy("playTime"));
+      onSnapshot(q, (querySnapshot) => {
+        setLeaderboard(
+          querySnapshot.docs.map((user) => ({
+            id: user.id,
+            data: user.data(),
+          }))
+        );
+      });
+    } catch (err) {}
+  }, []);
   React.useEffect(() => {
     if (wrapperRef.current) {
       setWidth(wrapperRef.current.offsetWidth - 70);
@@ -41,6 +56,7 @@ function App() {
           ducksAmount={ducksAmount}
           setTime={setTime}
           time={time}
+          leaderboard={leaderboard}
         />
       )}
       {ducksAmount === 0 && <Confetti />}
@@ -92,10 +108,13 @@ function App() {
         alt="burgerBtn"
         onClick={() => setSidebarOpen(!sidebarOpen)}
       />
-      <Sidebar setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
+      <Sidebar
+        setSidebarOpen={setSidebarOpen}
+        sidebarOpen={sidebarOpen}
+        leaderboard={leaderboard}
+      />
     </div>
   );
 }
-//TODO: About popup
-//TODO: Sidebar с leaderboard и информацией
+
 export default App;
